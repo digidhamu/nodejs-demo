@@ -1,3 +1,5 @@
 node_modules
 .scannerwork
 sonar-project.properties
+coverage
+.DS_Store

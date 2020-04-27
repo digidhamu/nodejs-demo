@@ -6,7 +6,8 @@
 	"scripts": {
 		"start": "node src/server.js",
 		"dev": "nodemon src/server.js",
-		"test": "jest --coverage=true",
+		"test": "jest",
+		"test-cover": "jest --coverage=true",
 		"test-check-handle": "jest --detectOpenHandles"
 	},
 	"keywords": [],

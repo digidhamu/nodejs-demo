@@ -17,9 +17,8 @@ pipeline {
       steps {
         container('docker') {  
           sh "docker build -t nodejs-demo:latest ."  // when we run docker in this step, we're running it via a shell on the docker build-pod container, 
-          sh "docker tag nodejs-demo:latest art-do.daas-digidhamu.svc.cluster.local:5000/nodejs-demo:latest"
-          sh "docker login --username admin --password kannan123 art-do.daas-digidhamu.svc.cluster.local:5000"
-          sh "docker push art-do.daas-digidhamu.svc.cluster.local:5000/nodejs-demo:latest"  // when we run docker in this step, we're running it via a shell on the docker build-pod container, 
+          sh "docker tag nodejs-demo:latest minikube:32000/nodejs-demo:latest"
+          sh "docker push minikube:32000/nodejs-demo:latest"  // when we run docker in this step, we're running it via a shell on the docker build-pod container, 
         }
       }
     }

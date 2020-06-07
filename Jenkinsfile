@@ -7,17 +7,43 @@ pipeline {
       defaultContainer 'node'  // define a default container if more than a few stages use it, will default to jnlp container
     }
   }
+  environment {
+    registry = "minikube:32000/nodejs-demo"
+    registryCredential = 'dcr-daas'
+    dockerImage = ''
+  }
   stages {
     stage('Build') {
-      steps {  // no container directive is needed as the maven container is the default
+      steps {
         sh "npm install"   
       }
     }
+
     stage('Build Docker Image') {
       steps {
-        container('docker') {  
-          sh "docker build -t nodejs-demo:latest ."  // when we run docker in this step, we're running it via a shell on the docker build-pod container, 
+        container('docker') {
+          // sh "docker build -t nodejs-demo:latest ."  // when we run docker in this step, we're running it via a shell on the docker build-pod container, 
+          script {
+            dockerImage = docker.build registry + ":$BUILD_NUMBER"
+            docker.withRegistry( '', registryCredential ) {
+              dockerImage.push()
+            }
+          }
         }
+      }
+    }
+  }
+}
+
+    stage('Deploy Image') {
+      steps{
+        script {
+        }
+      }
+    }
+    stage('Remove Unused docker image') {
+      steps{
+        sh "docker rmi $registry:$BUILD_NUMBER"
       }
     }
   }

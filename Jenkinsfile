@@ -17,6 +17,7 @@ pipeline {
       steps {
         container('docker') {  
           sh "docker build -t nodejs-demo ."  // when we run docker in this step, we're running it via a shell on the docker build-pod container, 
+          sh "docker push -t nodejs-demo"  // when we run docker in this step, we're running it via a shell on the docker build-pod container, 
         }
       }
     }

@@ -1,11 +1,5 @@
 pipeline {
-
   agent {
-    docker {
-        image 'nodejs-demo'
-        registryUrl 'http://minikube:32000'
-        registryCredentialsId 'dcr-daas'
-    }
     kubernetes {
       label 'nodejs-demo-app'  // all your pods will be named with this prefix, followed by a unique id
       idleMinutes 5  // how long the pod will live after no jobs have run on it
